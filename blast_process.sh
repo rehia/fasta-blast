@@ -54,8 +54,8 @@ for ((i = 0; i < ${#FASTA_FILES[@]}; i++)); do
 
   # Sleep only between files
   if (( i < ${#FASTA_FILES[@]} - 1 )); then
-    echo "Sleeping for 20 seconds to avoid spamming NCBI website..."
-    sleep 20
+    echo "Sleeping for 5 seconds to avoid spamming NCBI website..."
+    sleep 5
   fi
 done
 
