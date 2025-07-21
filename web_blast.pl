@@ -144,7 +144,7 @@ my $rtoe=$1;
 print STDERR "Polling response with ID " . $rid . " and estimated response time " . $rtoe . " sec\n";
 
 # wait for search to complete
-sleep $rtoe;
+sleep($rtoe / 2);
 
 # poll for results
 while (true)
