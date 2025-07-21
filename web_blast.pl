@@ -217,9 +217,10 @@ my $max_bit_score     = max map { $_->{bit_score} } @hsps;
 my $total_bit_score   = sum map { $_->{bit_score} } @hsps;
 my $total_score       = sum map { $_->{score} } @hsps;
 my $total_identity    = sum map { $_->{identity} } @hsps;
+my $total_align_length    = sum map { $_->{align_len} } @hsps;
 
-my $query_cover      = sprintf("%.1f%%", 100 * $total_score / $query_len);
-my $percent_identity = sprintf("%.1f%%", 100 * $total_identity / $query_len);
+my $query_cover      = sprintf("%.0f%%", 100 * $total_align_length / $query_len);
+my $percent_identity = sprintf("%.2f%%", 100 * $total_identity / $total_align_length);
 
 my $e_value           = $hsps[0]{evalue};
 my $accession_length  = $hit->{len};
@@ -247,17 +248,18 @@ my @fields = (
     $scientific_name,
     $max_bit_score,
     $total_bit_score,
-    sprintf("%.1f%%", 100 * $total_score / $query_len),
+    $query_cover,
     $e_value,
-    sprintf("%.1f%%", 100 * $total_identity / $query_len),
+    $percent_identity,
     $accession_length,
     $accession,
+    $query_len,
     $sequence
 );
 
 # Escape quotes and wrap strings if necessary (simplified CSV formatting)
 @fields = map {
-    if (/[,"]/) { # if field contains a comma or quote
+    if (/[,;"]/) { # if field contains a comma, semi-colon or quote
         s/"/""/g;  # escape quotes by doubling them
         qq("$_")   # wrap in quotes
     } else {

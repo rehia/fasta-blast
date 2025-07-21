@@ -61,7 +61,7 @@ done
 
 # Print all collected lines together
 # CSV header line (must match Perl output field order)
-echo "sequence name,description,scientific name,max score,total score,query cover,e value,percent identity,accession length,accession,sequence" > output.csv
+echo "sequence name,description,scientific name,max score,total score,query cover,e value,percent identity,accession length,accession,query length,sequence" > output.csv
 printf "%s\n" "${RESULTS[@]}" >> output.csv
 
 NOW=$( date '+%F_%H:%M:%S' )
